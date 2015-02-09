@@ -4,16 +4,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-const int chann = 1;
-const int frequ = 1000000;
-const int leds = 480;
-const int buffsize = leds * 3;
+#define SPI_FREQUENCY   1000000
+#define SPI_CHANNEL     1
 
-#define CRATE_WIDTH		5
-#define CRATE_HEIGHT	4
-#define CRATES_X		6
-#define CRATES_Y		4
-#define BUS_COUNT		4
+#define CRATE_WIDTH		  5
+#define CRATE_HEIGHT    4
+#define CRATES_X		    6
+#define CRATES_Y		    4
+#define BUS_COUNT		    4
 #define BYTES_PER_PIXEL	3
 #define CRATES_PER_BUS	6
 #define BUS_ROWS		(CRATES_Y*CRATE_HEIGHT)
@@ -35,15 +33,15 @@ void decodeOneStep(const char* filename);
 
 int main() {
 
-if(wiringPiSPISetup(chann, frequ) == -1) {
+if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
 
         printf("Could not initialize SPI!\n");
 
 }
 
-unsigned char buff[buffsize];
+unsigned char buff[BUFF_SIZE];
 
-for(int i = 0; i < buffsize; i++){
+for(int i = 0; i < BUFF_SIZE ; i++){
 
 buff[i] = 0xFF;
 
@@ -51,10 +49,10 @@ buff[i] = 0xFF;
 
 printf("Came to the end\n");
 
-wiringPiSPIDataRW(chann,buff,buffsize);
+wiringPiSPIDataRW(chann,buff,BUFF_SIZE);
 
 while(true) {
-wiringPiSPIDataRW(chann,buff,buffsize);
+wiringPiSPIDataRW(chann,buff,BUFF_SIZE);
 sleep(3);
 decodeOneStep("nyancat.png");
 sleep(3);
