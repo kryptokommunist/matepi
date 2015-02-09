@@ -3,10 +3,12 @@
 #include "lodepng.h"
 #include <stdlib.h>
 #include <unistd.h>
+
 const int chann = 1;
 const int frequ = 1000000;
 const int leds = 480;
 const int buffsize = leds * 3;
+
 #define CRATE_WIDTH		5
 #define CRATE_HEIGHT	4
 #define CRATES_X		6
