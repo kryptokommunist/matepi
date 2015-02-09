@@ -5,8 +5,8 @@ int main() {
 
 while(true){
 
-	unsigned char buffer = pngToCrap("circle.png");
-    wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
+	unsigned char crapbuffer = pngToCrap("circle.png");
+    wiringPiSPIDataRW(SPI_CHANNEL,crapbuffer,BUFF_SIZE);
     sleep(5);
 }    
 
