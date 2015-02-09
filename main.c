@@ -3,7 +3,7 @@
 
 int main() {
 
-	unsigned char crapbuffer = *pngToCrap("circle.png");
+	unsigned char crapbuffer = pngToCrap("circle.png");
 
 while(true){
 
