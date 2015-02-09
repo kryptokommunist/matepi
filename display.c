@@ -29,7 +29,7 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-unsigned char pngToCrap(const char* filename)
+unsigned char [] pngToCrap(const char* filename)
 {
   unsigned error;
   unsigned char *image;
@@ -88,6 +88,6 @@ for(int k = 0; k < 3; k++) {
 }
 
   /*returns buffer filled with image data*/
-  return *buffer;
+  return buffer;
 
 }
