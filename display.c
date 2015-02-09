@@ -28,20 +28,6 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 };
 
 
-void decodeOneStep(const char* filename);
-
-
-int main() {
-
-if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
-
-        printf("Could not initialize SPI!\n");
-
-}
-
-
-}
-
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 unsigned char pngToCrap(const char* filename)
 {
@@ -100,6 +86,6 @@ for(int k = 0; k < 3; k++) {
 }
 
   /*returns buffer filled with image data*/
-  return buffer;
+  return *buffer;
 
 }
