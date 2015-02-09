@@ -48,6 +48,8 @@ unsigned char pngToCrap(const char* filename)
     buffcnt++;
   }
 
+}
+
    
 free(image);
 
