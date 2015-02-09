@@ -88,6 +88,6 @@ for(int k = 0; k < 3; k++) {
 }
 
   /*returns buffer filled with image data*/
-  return buffer;
+  return *buffer;
 
 }
