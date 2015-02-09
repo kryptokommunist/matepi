@@ -69,8 +69,10 @@ sleep(3);
 decodeOneStep("red-line.png");
 sleep(3);
 decodeOneStep("line.png");
-sleep(0.2);
+sleep(3);
 decodeOneStep("test.png");
+sleep(3);
+decodeOneStep("black.png");
 }
 
 }
