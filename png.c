@@ -49,10 +49,10 @@ buff[i] = 0xFF;
 
 printf("Came to the end\n");
 
-wiringPiSPIDataRW(chann,buff,BUFF_SIZE);
+wiringPiSPIDataRW(SPI_CHANNEL,buff,BUFF_SIZE);
 
 while(true) {
-wiringPiSPIDataRW(chann,buff,BUFF_SIZE);
+wiringPiSPIDataRW(SPI_CHANNEL,buff,BUFF_SIZE);
 sleep(3);
 decodeOneStep("nyancat.png");
 sleep(3);
@@ -131,7 +131,7 @@ for(int k = 0; k < 3; k++) {
 }
 
   /*use image here*/
-  wiringPiSPIDataRW(chann,buffer,BUFF_SIZE);
+  wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
   /*printf("Width %i\n", width);printf("Height %i\n", height);*/
 
 }
