@@ -105,7 +105,7 @@ for(int bottle_x = 0; bottle_x < CRATE_WIDTH*3; bottle_x++){
 for(int bottle_y = 0; bottle_y < CRATE_HEIGHT; bottle_y++) {
 
         cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = buffer[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
-                      0    *     6    +    1   ][    0    *      5      * 3 +     3   ] = buffer[  0     *     20    *3 +    1    *      5     *3  +    0    *       5     *     6   *3  +    3   ];       
+                   
   
 }
 
