@@ -96,8 +96,8 @@ def show_gif(filename, hostname, gamma, centering=0.5):
 
         im = last_frame.copy()
         tw, th = im.size
-        if (tw, th) != (40, 16):
-            im = ImageOps.fit(im, (40, 16), Image.NEAREST, centering=(0.5, centering))
+        if (tw, th) != (30, 16):
+            im = ImageOps.fit(im, (30, 16), Image.NEAREST, centering=(0.5, centering))
         else:
             pass
 

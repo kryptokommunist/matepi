@@ -73,11 +73,11 @@ sleep(3);
 decodeOneStep("test.png");
 sleep(3);
 decodeOneStep("wiki.png");
-sleep(2);
+sleep(3);
 decodeOneStep("chinese.png");
-sleep(2);
+sleep(3);
 decodeOneStep("ok.png");
-sleep(2);
+sleep(3);
 }
 
 }
