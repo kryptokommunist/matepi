@@ -52,6 +52,8 @@ for(int bottle_y = 0; bottle_y < CRATE_HEIGHT; bottle_y++) {
 
 }
 
+unsigned char buffer[BUFF_SIZE];
+
 for(int i = 0; i < CRATE_COUNT; i++){
 
 for(int j = 0; j < CRATE_SIZE; j++) {
