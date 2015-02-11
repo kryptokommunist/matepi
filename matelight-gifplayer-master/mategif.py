@@ -14,7 +14,7 @@ display = ctypes.CDLL('/home/pi/matepi/matelight-gifplayer-master/display.so') #
 UDP_PORT = 1337
 
 ROWS = 16
-COLS = 40
+COLS = 30
 CRATE_COUNT = ROWS * COLS
 CRATE_SIZE = 20
 BYTES_PER_PIXEL = 3
@@ -110,8 +110,8 @@ def show_gif(filename, hostname, gamma, centering=0.5):
         data = list(im.getdata())
         cdata = (ctypes.c_ubyte * (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)) (*[x for sets in data for x in sets]) # flatten list, sinc data looks like [(123,124,145,120), (345,453,234,124),……]  and we want it to be like [123, 124, 145, 120, 345, 453, 234, 124….] for converting to c_ubyte 
         display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
-        message = prepare_message(data, unpack=True, gamma=gamma)
-        send_array(message, hostname)     
+        #message = prepare_message(data, unpack=True, gamma=gamma)
+        #send_array(message, hostname)     
         time.sleep(sleep_time)         
 
     if loop_last_frame and message is not None:
