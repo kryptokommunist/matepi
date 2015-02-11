@@ -132,6 +132,7 @@ if __name__ == '__main__':
             gamma = GAMMA
 	
         print "Transmitting '%s' to %s (press Ctrl+C to abort) ..." % (filename, hostname)
+        display.init_spi(); # initializing spi connection
         try:
             centering = 0.5
             while True:                
