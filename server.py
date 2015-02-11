@@ -44,14 +44,13 @@ while 1:
   display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_ubyte)))
   print "received data"
 
-
 def sendframe(framedata):
-	""" Send a frame to the display
-	The argument contains a h * w array of 3-tuples of (r, g, b)-data or 4-tuples of (r, g, b, a)-data where the a
-	channel is ignored.
-	"""
-	# just use the first Mate Light available
-	rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
-	global dbuf
-	np.copyto(dbuf[:480*(3+rgba)], np.frombuffer(framedata, dtype=np.uint8))
-	display.display(dbuf.ctypes.data_as(POINTER(c_uint8)))
+    """ Send a frame to the display
+    The argument contains a h * w array of 3-tuples of (r, g, b)-data or 4-tuples of (r, g, b, a)-data where the a
+    channel is ignored.
+    """
+    # just use the first Mate Light available
+    rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
+    global dbuf
+    np.copyto(dbuf[:480*(3+rgba)], np.frombuffer(framedata, dtype=np.uint8))
+    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)))
