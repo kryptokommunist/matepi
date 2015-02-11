@@ -49,7 +49,6 @@ def prepare_message(data, unpack=False, gamma=GAMMA):
     message = data_as_bytes + checksum
     cdata = (ctypes.c_ubyte * (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)) (*data_as_bytes) # flatten list, sinc data looks like [(123,124,145,120), (345,453,234,124),……]  and we want it to be like [123, 124, 145, 120, 345, 453, 234, 124….] for converting to c_ubyte 
     display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
-    return message
 
 def make_gradient(hue):
     """This creates a gradient for on hue value.
@@ -110,14 +109,11 @@ def show_gif(filename, hostname, gamma, centering=0.5):
             pass
 
         data = list(im.getdata())
-        message = prepare_message(data, unpack=True, gamma=gamma)
+        prepare_message(data, unpack=True, gamma=gamma)
         #send_array(message, hostname)     
         time.sleep(sleep_time)         
 
-    if loop_last_frame and message is not None:
-        while True:
-            message = prepare_message(data, unpack=True, gamma=gamma)
-            send_array(message, hostname)
+    
             
     
 if __name__ == '__main__':
