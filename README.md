@@ -1,6 +1,8 @@
 # matepi
 Controlling an led screen consisting of mate crates (WS2801 chipset led pixels)
 
+Reusing code from https://github.com/jaseg/matelight and https://github.com/uwekamper/matelight-gifplayer
+
 Compile png.c with: 
 
 g++ -Wall -o png png.c lodepng.c -lwiringPi

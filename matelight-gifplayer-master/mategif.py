@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+# Thanks to uwekamper: https://github.com/uwekamper/matelight-gifplayer
 
 import socket
 import colorsys # for HSV-to-RGB-conversion
