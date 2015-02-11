@@ -3,9 +3,9 @@ import struct
 import ctypes
 import colorsys
 from itertools import product
-from ctypes import c_size_t, c_uint8, c_void_p, c_float, CDLL, Structure, POINTER
 import numpy as np
 import time
+
 
 CRATE_WIDTH = 5
 CRATE_HEIGHT = 4
