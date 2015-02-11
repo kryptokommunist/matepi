@@ -108,6 +108,7 @@ def show_gif(filename, hostname, gamma, centering=0.5):
             pass
 
         data = list(im.getdata())
+        print(data)
         cdata = (ctypes.c_ubyte * (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)) (*[x for sets in data for x in sets]) # flatten list, sinc data looks like [(123,124,145,120), (345,453,234,124),……]  and we want it to be like [123, 124, 145, 120, 345, 453, 234, 124….] for converting to c_ubyte 
         display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
         #message = prepare_message(data, unpack=True, gamma=gamma)
