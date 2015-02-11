@@ -35,7 +35,7 @@ void display(unsigned char data[BUFF_SIZE]);
 void display(unsigned char data[BUFF_SIZE])
 {
 
-if(!spi_initialized) {
+if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
 	if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
 
@@ -43,7 +43,7 @@ if(!spi_initialized) {
 
 	    }
 
-	printf("I just initalized SPI, bitch!\n");
+	printf("I just initialized SPI, bitch!\n");
 
 	spi_initialized = -1;
 }
@@ -85,7 +85,5 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
-
-
 
 }
