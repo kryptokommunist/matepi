@@ -54,4 +54,4 @@ def sendframe(framedata):
 	rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
 	global dbuf
 	np.copyto(dbuf[:480*(3+rgba)], np.frombuffer(framedata, dtype=np.uint8))
-	display.display(dbuf.ctypes.data_as(POINTER(c_uint8))
+	display.display(dbuf.ctypes.data_as(POINTER(c_uint8)))
