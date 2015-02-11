@@ -8,7 +8,7 @@ import time
 import sys
 import ctypes
 
-display = ctypes.CDLL('display.so')
+display = ctypes.CDLL('/home/pi/matepi/matelight-gifplayer-master/display.so)
 
 # UDP_IP = "10.0.0.200"
 UDP_PORT = 1337
