@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <wiringPiSPI.h>
-#include "lodepng.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -27,6 +26,7 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   3, 4, 9, 14, 19
 };
 
+void display(unsigned char data);
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 void display(unsigned char data)
