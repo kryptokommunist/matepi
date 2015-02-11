@@ -28,6 +28,19 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 
 void display(unsigned char data[BUFF_SIZE]);
 
+void init_spi();
+
+void init_spi()
+{
+
+	if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
+
+        printf("Could not initialize SPI!\n");
+
+    }
+
+}
+
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 void display(unsigned char data[BUFF_SIZE])
 {
@@ -65,12 +78,6 @@ for(int k = 0; k < 3; k++) {
 }
 
 }
-
-}
-
-if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
-
-        printf("Could not initialize SPI!\n");
 
 }
 
