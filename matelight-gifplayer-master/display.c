@@ -28,7 +28,7 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 
 void display(unsigned char data[BUFF_SIZE]);
 
-void init_spi()
+void init_spi();
 
 void init_spi()
 {
