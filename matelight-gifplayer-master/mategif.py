@@ -48,7 +48,7 @@ def prepare_message(data, unpack=False, gamma=GAMMA):
     
     message = data_as_bytes + checksum
     cdata = (ctypes.c_ubyte * (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)) (*[x for sets in data_as_bytes for x in sets]) # flatten list, sinc data looks like [(123,124,145,120), (345,453,234,124),……]  and we want it to be like [123, 124, 145, 120, 345, 453, 234, 124….] for converting to c_ubyte 
-        display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
+    display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
     return message
 
 def make_gradient(hue):
