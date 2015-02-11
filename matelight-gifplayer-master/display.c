@@ -26,24 +26,23 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   3, 4, 9, 14, 19
 };
 
+int spi_initalized = 0;
+
 void display(unsigned char data[BUFF_SIZE]);
-
-void init_spi();
-
-void init_spi()
-{
-
-	if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
-
-        printf("Could not initialize SPI!\n");
-
-    }
-
-}
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 void display(unsigned char data[BUFF_SIZE])
 {
+
+if(!spi_initalized){
+	if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
+
+	        printf("Could not initialize SPI!\n");
+
+	    }
+
+	    spi_initalized = 1;
+ }   	
 
 unsigned char cratesData[CRATE_COUNT][CRATE_SIZE * 3];
 
