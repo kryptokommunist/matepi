@@ -72,11 +72,10 @@ if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
 
         printf("Could not initialize SPI!\n");
 
-} else {
+}
 
         wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
 
-}
 
 
 }

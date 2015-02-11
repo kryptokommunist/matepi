@@ -105,7 +105,8 @@ def show_gif(filename, hostname, gamma, centering=0.5):
             pass
 
         data=list(im.getdata())
-        display.display(c_ubyte_p(data)); # using c-types for displaying the image
+        cdata = (c_ubyte * (ROWS * COLS * 3)) data 
+        display.display(cdata); # using c-types for displaying the image
         message = prepare_message(data, unpack=True, gamma=gamma)
         send_array(message, hostname)     
         time.sleep(sleep_time)         
