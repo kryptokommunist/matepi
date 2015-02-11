@@ -14,6 +14,7 @@ s.bind((HOST,PORT))
 print "hunny, i'm listening..."
 
 while 1:
+  print(s.recv(BUFFSIZE))
   data = (ctypes.c_ubyte * BUFFSIZE) (*[x for sets in s.recv(BUFFSIZE) for x in sets])
   display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_ubyte)))
   print "received data"
