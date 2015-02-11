@@ -8,13 +8,16 @@ import time
 import sys
 import ctypes
 
-display = ctypes.CDLL('/home/pi/matepi/matelight-gifplayer-master/display.so')
+display = ctypes.CDLL('/home/pi/matepi/matelight-gifplayer-master/display.so') # C-Code for pushing data to display
 
 # UDP_IP = "10.0.0.200"
 UDP_PORT = 1337
 
 ROWS = 16
 COLS = 40
+CRATE_COUNT = ROWS * COLS
+CRATE_SIZE = 20
+BYTES_PER_PIXEL = 3
 
 BRIGHTNESS = 1.0
 GAMMA = 1.0
@@ -104,9 +107,9 @@ def show_gif(filename, hostname, gamma, centering=0.5):
         else:
             pass
 
-        data=list(im.getdata())
-        cdata = (ctypes.c_ubyte * len(data)) (*data) 
-        display.display(cdata); # using c-types for displaying the image
+        data = list(im.getdata())
+        cdata = (ctypes.c_ubyte * (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)) (*[x for sets in data for x in sets]) # flatten list, sinc data looks like [(123,124,145,120), (345,453,234,124),……]  and we want it to be like [123, 124, 145, 120, 345, 453, 234, 124….] for converting to c_ubyte 
+        display.display(ctypes.cast(cdata, ctypes.POINTER(ctypes.c_ubyte))); # using c-types for displaying the image
         message = prepare_message(data, unpack=True, gamma=gamma)
         send_array(message, hostname)     
         time.sleep(sleep_time)         

@@ -87,10 +87,6 @@ for(int k = 0; k < 3; k++) {
 
 }
 
-unsigned char * p = new unsigned char;
-*p = buffer;
-
-  /*returns buffer filled with image data*/
-  return p;
+wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
 
 }
