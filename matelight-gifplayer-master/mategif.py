@@ -6,6 +6,9 @@ import colorsys # for HSV-to-RGB-conversion
 from PIL import Image, GifImagePlugin, ImageSequence, ImageOps
 import time
 import sys
+import ctypes
+
+display = ctypes.CDLL('display.so')
 
 # UDP_IP = "10.0.0.200"
 UDP_PORT = 1337
@@ -102,6 +105,7 @@ def show_gif(filename, hostname, gamma, centering=0.5):
             pass
 
         data=list(im.getdata())
+        display.display(c_ubyte_p(data)); # using c-types for displaying the image
         message = prepare_message(data, unpack=True, gamma=gamma)
         send_array(message, hostname)     
         time.sleep(sleep_time)         
