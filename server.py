@@ -14,5 +14,5 @@ s.bind((HOST,PORT))
 print "hunny, i'm listening..."
 
 while 1:
-  data = (ctypes.u_byte * BUFFSIZE) (*s.recv(BUFFSIZE))
+  data = (ctypes.c_ubyte * BUFFSIZE) (*s.recv(BUFFSIZE))
   display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_ubyte)))
