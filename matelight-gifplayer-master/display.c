@@ -26,10 +26,10 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   3, 4, 9, 14, 19
 };
 
-void display(unsigned char data);
+void display(unsigned char * data);
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(unsigned char data)
+void display(unsigned char * data)
 {
 
 unsigned char cratesData[CRATE_COUNT][CRATE_SIZE * 3];
