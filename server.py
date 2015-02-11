@@ -1,6 +1,7 @@
 import socket
 import struct
 import ctypes
+from ctypes import c_size_t, c_uint8, c_void_p, c_float, CDLL, Structure, POINTER
 import colorsys
 from itertools import product
 import numpy as np
