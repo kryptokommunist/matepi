@@ -27,7 +27,7 @@ class COLOR(Structure):
 class FRAMEBUFFER(Structure):
      _fields_ = [('data', POINTER(COLOR)), ('w', c_size_t), ('h', c_size_t)]
 
-dbuf = np.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*4, dtype=np.uint8)
+dbuf = numpy.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*4, dtype=np.uint8)
 
 def sendframe(framedata):
     """ Send a frame to the display
