@@ -4,7 +4,7 @@ import ctypes
 from ctypes import c_size_t, c_uint8, c_void_p, c_float, CDLL, Structure, POINTER
 import colorsys
 from itertools import product
-import numpy as np
+import numpy
 import time
 
 
@@ -35,7 +35,7 @@ def sendframe(framedata):
     # just use the first Mate Light available
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
     global dbuf
-    np.copyto(dbuf[:480*(3+rgba)], np.frombuffer(framedata, dtype=np.uint8))
+    numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)))		
 
 
