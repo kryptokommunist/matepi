@@ -27,6 +27,8 @@ class COLOR(Structure):
 class FRAMEBUFFER(Structure):
      _fields_ = [('data', POINTER(COLOR)), ('w', c_size_t), ('h', c_size_t)]
 
+dbuf = np.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*4, dtype=np.uint8)
+
 def sendframe(framedata):
     """ Send a frame to the display
     The argument contains a h * w array of 3-tuples of (r, g, b)-data or 4-tuples of (r, g, b, a)-data where the a
