@@ -52,10 +52,10 @@ s.bind((HOST,PORT))
 print "hunny, i'm listening..."
 
 while 1:
-  print(s.recv(BUFFSIZE))
+  #print(s.recv(BUFFSIZE))
   data = s.recv(BUFFSIZE)
   sendframe(data)
   display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_ubyte)))
-  print "received data"
+  #print "received data"
 
 
