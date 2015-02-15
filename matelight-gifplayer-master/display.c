@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <wiringPiSPI.h>
 #include <stdlib.h>
@@ -17,6 +19,7 @@
 #define CRATE_COUNT		(CRATES_X*CRATES_Y)
 #define CRATE_SIZE		(CRATE_WIDTH*CRATE_HEIGHT)
 #define BUS_SIZE		(CRATES_PER_BUS*CRATE_SIZE*BYTES_PER_PIXEL)
+#define BOTTLES               (CRATE_COUNT*CRATE_SIZE)
 #define BUFF_SIZE                (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)
 
 unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
@@ -26,13 +29,21 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   3, 4, 9, 14, 19
 };
 
+typedef struct {
+	uint8_t r, g, b, a;
+} color_t;
+
+typedef struct {
+	uint8_t r, g, b;
+} rgb_t;
+
 int spi_initialized = 0;
 
 void display(unsigned char data[BUFF_SIZE]);
 
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(unsigned char data[BUFF_SIZE])
+void display(unsigned char data[BUFF_SIZE], int alpha)
 {
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
@@ -47,6 +58,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 	spi_initialized = -1;
 }
+
 
 unsigned char cratesData[CRATE_COUNT][CRATE_SIZE * 3];
 
