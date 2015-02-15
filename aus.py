@@ -13,5 +13,5 @@ from ctypes import *
 
 from server import sendframe, DISPLAY_WIDTH, DISPLAY_HEIGHT, FRAME_SIZE
 
-if __name__ == '__main__':
-    sendframe(bytes([0, 0, 0]*FRAME_SIZE))
+#if __name__ == '__main__':
+sendframe(bytes([0, 0, 0]*FRAME_SIZE))
