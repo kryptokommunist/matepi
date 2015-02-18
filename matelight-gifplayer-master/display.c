@@ -45,7 +45,7 @@ void display(unsigned int data[BUFF_SIZE], int alpha);
 
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(unsigned int data[BUFF_SIZE], int alpha)
+void display(unsigned int8 data[BUFF_SIZE], int alpha)
 {
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
