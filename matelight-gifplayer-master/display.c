@@ -29,6 +29,7 @@ unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   3, 4, 9, 14, 19
 };
 
+/*
 typedef struct {
 	uint8_t r, g, b, a;
 } color_t;
@@ -36,14 +37,15 @@ typedef struct {
 typedef struct {
 	uint8_t r, g, b;
 } rgb_t;
+*/
 
 int spi_initialized = 0;
 
-void display(unsigned char data[BUFF_SIZE]);
+void display(unsigned int data[BUFF_SIZE], int alpha);
 
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(unsigned char data[BUFF_SIZE], int alpha = 0)
+void display(unsigned int data[BUFF_SIZE], int alpha)
 {
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
@@ -70,7 +72,7 @@ for(int crate_x = 0; crate_x < CRATES_X; crate_x++){
 
 			for(int bottle_y = 0; bottle_y < CRATE_HEIGHT; bottle_y++) {
 
-				cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
+				cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = (unsigned char) data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
 
 			}
 
