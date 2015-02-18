@@ -53,9 +53,9 @@ print "hunny, i'm listening..."
 
 while 1:
   #print(s.recv(BUFFSIZE))
-  data = s.recv(BUFFSIZE)
+  data = s.recv(BUFFSIZE + 4)
   sendframe(data)
-  display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_ubyte)))
+  display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
 
