@@ -27,6 +27,63 @@ class COLOR(Structure):
 class FRAMEBUFFER(Structure):
      _fields_ = [('data', POINTER(COLOR)), ('w', c_size_t), ('h', c_size_t)]
 
+bdf = CDLL('./libbdf.so')
+bdf.read_bdf_file.restype = c_void_p
+bdf.framebuffer_render_text.restype = POINTER(FRAMEBUFFER)
+bdf.framebuffer_render_text.argtypes= [c_char_p, c_void_p, c_void_p, c_size_t, c_size_t, c_size_t]
+
+unifont = bdf.read_bdf_file('unifont.bdf')
+
+def compute_text_bounds(text):
+  assert unifont
+  textbytes = bytes(str(text), 'UTF-8')
+  textw, texth = c_size_t(0), c_size_t(0)
+  res = bdf.framebuffer_get_text_bounds(textbytes, unifont, byref(textw), byref(texth))
+  if res:
+    raise ValueError('Invalid text')
+  return textw.value, texth.value
+
+cbuf = create_string_buffer(FRAME_SIZE*sizeof(COLOR))
+cbuflock = threading.Lock()
+
+def render_text(text, offset):
+  global cbuf
+  cbuflock.acquire()
+  textbytes = bytes(str(text), 'UTF-8')
+  res = bdf.framebuffer_render_text(textbytes, unifont, cbuf, DISPLAY_WIDTH, DISPLAY_HEIGHT, offset)
+  if res:
+    raise ValueError('Invalid text')
+  cbuflock.release()
+  return cbuf
+
+printlock = threading.Lock()
+
+def printframe(fb):
+  printlock.acquire()
+  print('\0337\033[H', end='')
+  print('Rendering frame @{}'.format(time()))
+  bdf.console_render_buffer(fb, DISPLAY_WIDTH, DISPLAY_HEIGHT)
+  #print('\033[0m\033[KCurrently rendering', current_entry.entrytype, 'from', current_entry.remote, ':', current_entry.text, '\0338', end='')
+  printlock.release()
+
+def log(*args):
+  printlock.acquire()
+  print(strftime('\x1B[93m[%m-%d %H:%M:%S]\x1B[0m'), ' '.join(str(arg) for arg in args), '\x1B[0m')
+  sys.stdout.flush()
+  printlock.release()
+
+class TextRenderer:
+  def __init__(self, text):
+    self.text = text
+    self.width, _ = compute_text_bounds(text)
+
+  def __iter__(self):
+    for i in range(-DISPLAY_WIDTH, self.width):
+      #print('Rendering text @ pos {}'.format(i))
+      yield render_text(self.text, i)
+
+#  -------------------------------------------------------
+
 dbuf = numpy.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*3, dtype=numpy.uint8)
 
 def sendframe(framedata):
@@ -53,9 +110,18 @@ print "hunny, i'm listening..."
 
 while 1:
   #print(s.recv(BUFFSIZE))
+  
   data = s.recv(BUFFSIZE)
   sendframe(data)
+
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
+
+  renderer = TextRenderer(Test)
+
+  for frame in renderer:
+      sendframe(frame)
+#     printframe(frame)
+#     sleep(0.1)
 
 

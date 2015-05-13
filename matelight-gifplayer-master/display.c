@@ -100,5 +100,6 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
+sleep(0.1); // give time to display, without this the data somehow doesn't get pushed to the display...
 
 }
