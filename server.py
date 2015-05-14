@@ -118,7 +118,7 @@ while 1:
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  renderer = TextRenderer("Tes t sfasiofunsfnn sfjalkf")
+  renderer = TextRenderer("\x1B[38;5;214mexpiring for love is beautiful but stupid")
 
   for frame in renderer:
       sendframe(frame)
