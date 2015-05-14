@@ -130,6 +130,6 @@ while 1:
   for frame in renderer:
       sendframe(frame)
 #     printframe(frame)
-#     sleep(0.1)
+      sleep(0.1)
 
 
