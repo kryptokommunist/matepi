@@ -37,6 +37,7 @@ unifont = bdf.read_bdf_file('unifont.bdf')
 
 def compute_text_bounds(text):
   assert unifont
+  print text
   textbytes = bytes(str(text), 'UTF-8')
   textw, texth = c_size_t(0), c_size_t(0)
   res = bdf.framebuffer_get_text_bounds(textbytes, unifont, byref(textw), byref(texth))
@@ -50,7 +51,6 @@ cbuflock = threading.Lock()
 def render_text(text, offset):
   global cbuf
   cbuflock.acquire()
-  print text
   textbytes = bytes(str(text), 'UTF-8')
   res = bdf.framebuffer_render_text(textbytes, unifont, cbuf, DISPLAY_WIDTH, DISPLAY_HEIGHT, offset)
   if res:
