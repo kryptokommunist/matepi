@@ -95,6 +95,9 @@ def sendframe(framedata):
     """
     # just use the first Mate Light available
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
+    if rgba == 1:
+       del framedata[1::4]
+
     global dbuf
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)		
