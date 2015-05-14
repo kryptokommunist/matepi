@@ -126,7 +126,7 @@ while 1:
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- ")
+  renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- $%&/()=?*")
 
   for frame in renderer:
       sendframe(frame)
