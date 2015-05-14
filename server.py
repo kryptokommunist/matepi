@@ -1,7 +1,7 @@
 import socket
 import struct
 import ctypes
-from ctypes import c_size_t, c_uint8, c_void_p, c_float, CDLL, Structure, POINTER
+from ctypes import * #from ctypes import c_size_t, c_uint8, c_void_p, c_float, CDLL, Structure, POINTER
 import colorsys
 from itertools import product
 import numpy
@@ -61,7 +61,7 @@ printlock = threading.Lock()
 def printframe(fb):
   printlock.acquire()
   #print('\0337\033[H', end='')
-  #print('Rendering frame @{}'.format(time()))
+  #from ctypes import *print('Rendering frame @{}'.format(time()))
   bdf.console_render_buffer(fb, DISPLAY_WIDTH, DISPLAY_HEIGHT)
   #print('\033[0m\033[KCurrently rendering', current_entry.entrytype, 'from', current_entry.remote, ':', current_entry.text, '\0338', end='')
   printlock.release()
