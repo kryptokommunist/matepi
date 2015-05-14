@@ -6,6 +6,7 @@ import colorsys
 from itertools import product
 import numpy
 import time
+import threading
 
 
 CRATE_WIDTH = 5
