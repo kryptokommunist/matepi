@@ -112,13 +112,13 @@ print "hunny, i'm listening..."
 while 1:
   #print(s.recv(BUFFSIZE))
   
-  data = s.recv(BUFFSIZE)
-  sendframe(data)
+  #data = s.recv(BUFFSIZE)
+  #sendframe(data)
 
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  renderer = TextRenderer(Test)
+  renderer = TextRenderer("Tes t sfasiofunsfnn sfjalkf")
 
   for frame in renderer:
       sendframe(frame)
