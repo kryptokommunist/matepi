@@ -38,7 +38,7 @@ unifont = bdf.read_bdf_file('unifont.bdf')
 
 def compute_text_bounds(text):
   assert unifont
-  print text
+
   textbytes = text
   textw, texth = c_size_t(0), c_size_t(0)
   res = bdf.framebuffer_get_text_bounds(textbytes, unifont, byref(textw), byref(texth))
@@ -126,7 +126,7 @@ while 1:
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- §$%&/()=?*\#")
+  renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- §$%&/()=?*")
 
   for frame in renderer:
       sendframe(frame)
