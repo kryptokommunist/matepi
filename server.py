@@ -50,6 +50,7 @@ cbuflock = threading.Lock()
 def render_text(text, offset):
   global cbuf
   cbuflock.acquire()
+  print text
   textbytes = bytes(str(text), 'UTF-8')
   res = bdf.framebuffer_render_text(textbytes, unifont, cbuf, DISPLAY_WIDTH, DISPLAY_HEIGHT, offset)
   if res:
