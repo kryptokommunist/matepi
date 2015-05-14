@@ -19,8 +19,9 @@ DISPLAY_HEIGHT = CRATES_Y*CRATE_HEIGHT
 CRATE_SIZE = CRATE_WIDTH*CRATE_HEIGHT*3
 FRAME_SIZE = DISPLAY_WIDTH*DISPLAY_HEIGHT
 
-display = ctypes.CDLL("/home/pi/matepi/matelight-gifplayer-master/display.so")
+display = ctypes.CDLL("/home/pi/matepi/matelight-gifplayer-master/display.so") # shared library in C for framebuffer output
 
+# ---------------------------------------------------
 
 class COLOR(Structure):
      _fields_ = [('r', c_uint8), ('g', c_uint8), ('b', c_uint8), ('a', c_uint8)]
@@ -125,7 +126,7 @@ while 1:
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  renderer = TextRenderer("\x1B[38;5;214mexpiring for love is beautiful but stupid")
+  renderer = TextRenderer("fsjkfjasdkf Penis lOLO")
 
   for frame in renderer:
       sendframe(frame)
