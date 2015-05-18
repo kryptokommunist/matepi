@@ -9,8 +9,7 @@ import threading
 import random
 import os
 import sys
-
-from ctypes import *
+import ctypes
 
 
 CRATE_WIDTH = 5
