@@ -8,6 +8,15 @@ import numpy
 import time
 import threading
 
+import zlib
+from time import time, strftime, sleep
+from collections import namedtuple, deque
+import itertools
+import threading
+import random
+import os
+import sys
+
 
 CRATE_WIDTH = 5
 CRATE_HEIGHT = 4
