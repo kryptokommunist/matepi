@@ -8,15 +8,6 @@ import numpy
 import time
 import threading
 
-import zlib
-from time import time, strftime, sleep
-from collections import namedtuple, deque
-import itertools
-import threading
-import random
-import os
-import sys
-
 
 CRATE_WIDTH = 5
 CRATE_HEIGHT = 4
@@ -94,18 +85,6 @@ class TextRenderer:
       #print('Rendering text @ pos {}'.format(i))
       yield render_text(self.text, i)
 
-class MateLightTCPTextHandler(BaseRequestHandler):
-	def handle(self):
-		global render_deque
-		data = str(self.request.recv(1024).strip(), 'UTF-8')
-		addr = self.client_address[0]
-		if len(data) > 140:
-			self.request.sendall(b'TOO MUCH INFORMATION!\n')
-			return
-		log('\x1B[95mText from\x1B[0m {}: {}\x1B[0m'.format(addr, data))
-		renderqueue.append(TextRenderer(data))
-		self.request.sendall(b'KTHXBYE!\n')
-
 #  -------------------------------------------------------
 
 dbuf = numpy.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*3, dtype=numpy.uint8)
@@ -136,12 +115,6 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 s.bind((HOST,PORT))
 
-TCPServer.allow_reuse_address = True
-tserver = TCPServer(('', 1337), MateLightTCPTextHandler)
-t = threading.Thread(target=tserver.serve_forever)
-t.daemon = True
-t.start()
-
 print "hunny, i'm listening..."
 
 while 1:
@@ -153,15 +126,11 @@ while 1:
   #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
   #print "received data"
 
-  foo = os.urandom(640)
-  frame = bytes([v for c in zip(list(foo), list(foo), list(foo)) for v in c ])
-  sleep(0.05)
+  renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- $%&/()=?*")
 
-  #renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- $%&/()=?*")
-
-  #for frame in renderer:
-   #   sendframe(frame)
+  for frame in renderer:
+      sendframe(frame)
 #     printframe(frame)
-    #  time.sleep(0.1)
+      time.sleep(0.1)
 
 
