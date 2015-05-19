@@ -109,7 +109,7 @@ def sendframe(framedata):
 
 HOST = "192.168.2.157"
 PORT = 1337
-BUFFSIZE = 16*30*20*3
+BUFFSIZE = 16*30*3
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
