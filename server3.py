@@ -135,7 +135,8 @@ def tcpserver():
 
 print "hunny, i'm listening..."
 
-threading.Thread(target = tcpserver)
+thread = threading.Thread(target = tcpserver)
+thread.start()
 
 while 1:
 
