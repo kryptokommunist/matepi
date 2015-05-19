@@ -7,6 +7,7 @@ from itertools import product
 import numpy
 import time
 import threading
+import Queue
 
 
 CRATE_WIDTH = 5
