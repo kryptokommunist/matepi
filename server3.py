@@ -146,7 +146,7 @@ while 1:
   else:
     try: 
       frame = next(defaultexts)
-    exept StopIteration:
+    except StopIteration:
       defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
       defaulttexts = itertools.chain(*defaultlines)
 
