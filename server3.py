@@ -121,7 +121,7 @@ def tcpserver():
 
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    tcp.bind((HOST,1338))
+    tcp.bind((HOST,PORT))
     tcp.listen(1)
 
     while 1:
@@ -136,6 +136,10 @@ print "hunny, i'm listening..."
 
 thread = threading.Thread(target = tcpserver)
 thread.start()
+
+defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
+#random.shuffle(defaultlines)
+defaulttexts = itertools.chain(*defaultlines)
 
 while 1:
 
