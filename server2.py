@@ -1,4 +1,4 @@
-
+from socketserver import *
 import socket
 import struct
 import zlib
@@ -10,6 +10,7 @@ import random
 import os
 import sys
 import ctypes
+from ctypes import *
 
 
 CRATE_WIDTH = 5
@@ -85,7 +86,7 @@ printlock = threading.Lock()
 
 def printframe(fb):
   printlock.acquire()
-  print('\0337\033[H', end)
+  print('\0337\033[H', end='')
   print('Rendering frame @{}'.format(time()))
   bdf.console_render_buffer(fb, DISPLAY_WIDTH, DISPLAY_HEIGHT)
   #print('\033[0m\033[KCurrently rendering', current_entry.entrytype, 'from', current_entry.remote, ':', current_entry.text, '\0338', end='')
