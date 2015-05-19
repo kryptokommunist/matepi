@@ -150,10 +150,13 @@ while 1:
       defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
       defaulttexts = itertools.chain(*defaultlines)
 
+    sendframe(frame)
+    continue
 
- for frame in renderer:
-   sendframe(frame)
-   #printframe(frame)
-   time.sleep(0.1)
+
+  for frame in renderer:
+     sendframe(frame)
+     #printframe(frame)
+     time.sleep(0.1)
 
 
