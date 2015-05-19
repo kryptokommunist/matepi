@@ -121,7 +121,7 @@ def tcpserver():
 
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    tcp.bind((HOST,PORT))
+    tcp.bind((HOST,1338))
     tcp.listen(1)
 
     while 1:
