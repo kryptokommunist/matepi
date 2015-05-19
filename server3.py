@@ -112,39 +112,42 @@ PORT = 1337
 BUFFSIZE = 16*30*20*3
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-tcp.bind((HOST,PORT))
-tcp.listen(1)
-
 s.bind((HOST,PORT))
 
+render_queue = Queue.LifoQueue(maxsize=50)
 
+def tcpserver():
+
+    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    tcp.bind((HOST,PORT))
+    tcp.listen(1)
+
+    while 1:
+      conn, addr = tcp.accept()
+      data = conn.recv(BUFFSIZE)
+      render_queue.put(TextRenderer(data))
+      print "received data: ", data
+      conn.send("Thanks for:" + data)
+      conn.close()
+      conn.close()
 
 print "hunny, i'm listening..."
 
+threading.Thread(target = tcpserver)
+
 while 1:
-  #print(s.recv(BUFFSIZE))
-  
-  #data = s.recv(BUFFSIZE)
-  #sendframe(data)
 
-  #display.display(ctypes.cast(data, ctypes.POINTER(ctypes.c_uint8)))
-  #print "received data"
+  if !render_queue.empty():
+  #  print(s.recv(BUFFSIZE))
+  #  data = s.recv(BUFFSIZE)
+   # sendframe(data)
 
-  #renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- $%&/()=?*")
-  conn, addr = tcp.accept()
-  data = conn.recv(BUFFSIZE)
-
-  if not data: break
-  print "received data: ", data
-  conn.send(data)
-  conn.close()
-
- # for frame in renderer:
-  #    sendframe(frame)
-#     printframe(frame)
-   #   time.sleep(0.1)
+  #else
+     renderer = render_queue.get()
+     for frame in renderer:
+       sendframe(frame)
+       printframe(frame)
+       time.sleep(0.1)
 
 
