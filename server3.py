@@ -150,7 +150,7 @@ while 1:
    # renderer = userver
   else:
     try: 
-      frame = next(defaultexts)
+      frame = next(defaulttexts)
     except StopIteration:
       defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
       defaulttexts = itertools.chain(*defaultlines)
