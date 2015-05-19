@@ -131,7 +131,6 @@ def tcpserver():
       print "received data: ", data
       conn.send("Thanks for:" + data)
       conn.close()
-      conn.close()
 
 print "hunny, i'm listening..."
 
@@ -141,15 +140,20 @@ thread.start()
 while 1:
 
   if not render_queue.empty():
-  #  print(s.recv(BUFFSIZE))
-  #  data = s.recv(BUFFSIZE)
-   # sendframe(data)
+    renderer = render_queue.get()
+  elif userver.frame_da()
+    renderer = userver
+  else:
+    try: 
+      frame = next(defaultexts)
+    exept StopIteration:
+      defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
+      defaulttexts = itertools.chain(*defaultlines)
 
-  #else
-     renderer = render_queue.get()
-     for frame in renderer:
-       sendframe(frame)
-       printframe(frame)
-       time.sleep(0.1)
+
+ for frame in renderer:
+   sendframe(frame)
+   #printframe(frame)
+   time.sleep(0.1)
 
 
