@@ -156,6 +156,7 @@ while 1:
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
+    time.sleep(0.1)
     continue
 
 
