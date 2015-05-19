@@ -138,7 +138,7 @@ threading.Thread(target = tcpserver)
 
 while 1:
 
-  if !render_queue.empty():
+  if not render_queue.empty():
   #  print(s.recv(BUFFSIZE))
   #  data = s.recv(BUFFSIZE)
    # sendframe(data)
