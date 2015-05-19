@@ -106,7 +106,10 @@ def sendframe(framedata):
     global dbuf
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
-    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)		
+    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)
+
+Class UDPServer:
+
 
 
 HOST = "192.168.2.157"
