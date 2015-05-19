@@ -120,7 +120,7 @@ tcp.listen(1)
 
 s.bind((HOST,PORT))
 
-conn, addr = tcp.accept()
+
 
 print "hunny, i'm listening..."
 
@@ -134,16 +134,17 @@ while 1:
   #print "received data"
 
   #renderer = TextRenderer("MARCUS IS COOL! MUHARHAR :) !  -- $%&/()=?*")
-
+  conn, addr = tcp.accept()
   data = conn.recv(BUFFSIZE)
 
   if not data: break
   print "received data: ", data
   conn.send(data)
+  conn.close()
 
  # for frame in renderer:
   #    sendframe(frame)
 #     printframe(frame)
    #   time.sleep(0.1)
-conn.close()
+
 
