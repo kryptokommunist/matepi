@@ -141,8 +141,8 @@ while 1:
 
   if not render_queue.empty():
     renderer = render_queue.get()
-  elif userver.frame_da()
-    renderer = userver
+  #elif userver.frame_da()
+   # renderer = userver
   else:
     try: 
       frame = next(defaultexts)
