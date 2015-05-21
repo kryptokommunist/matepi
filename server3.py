@@ -118,7 +118,7 @@ class UDPServer:
   def __init__(self, port = 1337, ip= ''):
     self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     self.socket.bind((ip, port))
-    self.thread = threading.Thread(target = self.udp_receive())
+    self.thread = threading.Thread(target = self.udp_receive)
     self.thread.daemon = True
     self.start = self.thread.start
     self.frame_condition = threading.condition()
