@@ -11,7 +11,7 @@ import itertools
 import queue
 import sys
 
-reload(sys)  
+
 sys.setdefaultencoding('utf8')
 
 UDP_TIMEOUT = 3.0
