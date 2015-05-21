@@ -9,10 +9,6 @@ import time
 import threading
 import itertools
 import queue
-import sys
-
-
-sys.setdefaultencoding('utf8')
 
 UDP_TIMEOUT = 3.0
 
@@ -180,7 +176,7 @@ thread.start()
 
 udp_server = UDPServer(1337, '192.168.2.157')
 
-defaultlines = [ TextRenderer(l[:-1].decode('utf-8').replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
+defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
 
