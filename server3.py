@@ -124,13 +124,13 @@ class UDPServer:
     self.frame_condition = threading.Condition()
     self.frame = None
 
-  def frame_da():
+  def frame_da(self):
     return self.frame is not None
 
   def __iter__(self):
     while True:
       with self.frame_condition:
-        if not self.frame_condition.wait_for(self.frame_da(), timeout = UDP_TIMEOUT):
+       if not self.frame_condition.wait_for(self.frame_da, timeout=UDP_TIMEOUT):
           raise StopIteration()
         frame, self.frame = self.frame, None
         yield frame
@@ -185,7 +185,7 @@ while 1:
   if not render_queue.empty():
     renderer = render_queue.get()
 
-  elif udp_server.frame_da():
+  elif udp_server.frame_da:
     renderer = udp_server
   else:
     try: 
