@@ -135,7 +135,7 @@ class UDPServer:
         frame, self.frame = self.frame, None
         yield frame
 
-  def udp_receive():
+  def udp_receive(self):
     while True:
       try:
         data = socket.recv(BUFFSIZE)
