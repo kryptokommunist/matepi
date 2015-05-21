@@ -8,7 +8,7 @@ import numpy
 import time
 import threading
 import itertools
-import Queue
+import queue
 
 UDP_TIMEOUT = 3.0
 
@@ -152,7 +152,7 @@ class UDPServer:
         print ("Error receiving UDP frame:", e)
 
 
-render_queue = Queue.LifoQueue(maxsize=50)
+render_queue = queue.LifoQueue(maxsize=50)
 
 def tcpserver():
 
