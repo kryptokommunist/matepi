@@ -149,7 +149,7 @@ class UDPServer:
           self.frame = frame
           self.frame_condition.notify()
       except Exception as e:
-        print "Error receiving UDP frame:" + e
+        print ("Error receiving UDP frame:", e)
 
 
 render_queue = Queue.LifoQueue(maxsize=50)
@@ -165,11 +165,11 @@ def tcpserver():
       conn, addr = tcp.accept()
       data = conn.recv(BUFFSIZE)
       render_queue.put(TextRenderer(data))
-      print "received data: ", data
+      print ("received data: ", data)
       conn.send("Thanks for:" + data)
       conn.close()
 
-print "hunny, i'm listening..."
+print ("hunny, i'm listening...")
 
 thread = threading.Thread(target = tcpserver)
 thread.start()
