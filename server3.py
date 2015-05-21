@@ -184,8 +184,7 @@ while 1:
 
   if not render_queue.empty():
     renderer = render_queue.get()
-  #elif userver.frame_da()
-   # renderer = userver
+
   elif udp_server.frame_da:
     renderer = udp_server
   else:
