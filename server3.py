@@ -121,7 +121,7 @@ class UDPServer:
     self.thread = threading.Thread(target = self.udp_receive)
     self.thread.daemon = True
     self.start = self.thread.start
-    self.frame_condition = threading.condition()
+    self.frame_condition = threading.Condition()
     self.frame = None
 
   def frame_da():
