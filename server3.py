@@ -10,6 +10,7 @@ import threading
 import itertools
 import Queue
 
+UDP_TIMEOUT = 3.0
 
 CRATE_WIDTH = 5
 CRATE_HEIGHT = 4
@@ -20,6 +21,10 @@ DISPLAY_WIDTH = CRATES_X*CRATE_WIDTH
 DISPLAY_HEIGHT = CRATES_Y*CRATE_HEIGHT
 CRATE_SIZE = CRATE_WIDTH*CRATE_HEIGHT*3
 FRAME_SIZE = DISPLAY_WIDTH*DISPLAY_HEIGHT
+
+HOST = "192.168.2.157"
+PORT = 1337
+BUFFSIZE = FRAME_SIZE*3
 
 display = ctypes.CDLL("/home/pi/matepi/matelight-gifplayer-master/display.so") # shared library in C for framebuffer output
 
@@ -108,16 +113,44 @@ def sendframe(framedata):
 
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)
 
-Class UDPServer:
+class UDPServer:
 
+  def __init__(self, port = 1337, ip= ''):
+    self.socket = socket.socket(socket.AF.INET, socket.SOCK_DGRAM)
+    self.socket.bind((port, ip))
+    self.thread = threading.Thread(target = self.udp_receive())
+    self.thread.daemon = True
+    self.start = self.thread.start
+    self.frame_condition = threading.condition()
+    self.frame = None
 
+  def frame_da():
+    return self.frame is not None
 
-HOST = "192.168.2.157"
-PORT = 1337
-BUFFSIZE = 16*30*20*3
+  def __iter__(self):
+    while True:
+      with self.frame_condition:
+        if not self.frame_condition.wait_for(self.frame_da, timeout = UDP_TIMEOUT):
+          raise StopIteration()
+        frame, self.frame = self.frame, None
+        yield frame
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind((HOST,PORT))
+  def udp_receive():
+    while True:
+      try:
+        data = socket.recv(BUFFSIZE)
+        if len(data) == BUFFSIZE+4:
+          frame = data[:-4]
+        elif len(data) == BUFFSIZE:
+          frame = data
+        else:
+          raise ValueError('Invalid frame size: {}'.format(len(data)))
+        with self.frame_condition:
+          self.frame = frame
+          self.frame_condition.notify()
+      except Exception as e:
+        print "Error receiving UDP frame:" + e
+
 
 render_queue = Queue.LifoQueue(maxsize=50)
 
@@ -141,6 +174,8 @@ print "hunny, i'm listening..."
 thread = threading.Thread(target = tcpserver)
 thread.start()
 
+udp_server = UDPServer(1337, '192.168.2.157')
+
 defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
@@ -151,6 +186,8 @@ while 1:
     renderer = render_queue.get()
   #elif userver.frame_da()
    # renderer = userver
+  elif udp_server.frame_da():
+    renderer = udp_server
   else:
     try: 
       frame = next(defaulttexts)
