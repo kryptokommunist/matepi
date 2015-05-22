@@ -91,6 +91,7 @@ class TextRenderer:
   def __iter__(self):
     for i in range(-DISPLAY_WIDTH, self.width):
       #print('Rendering text @ pos {}'.format(i))
+      time.sleep(0.1)
       yield render_text(self.text, i)
 
 #  -------------------------------------------------------
