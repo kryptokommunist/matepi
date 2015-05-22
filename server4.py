@@ -113,6 +113,13 @@ def sendframe(framedata):
 
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)
 
+def wait_until(somepredicate, timeout, period=0.25, *args, **kwargs):
+  mustend = time.time() + timeout
+  while time.time() < mustend:
+    if somepredicate(*args, **kwargs): return True
+    time.sleep(period)
+  return False
+
 class UDPServer:
 
   def __init__(self, port = 1337, ip= ''):
@@ -130,9 +137,9 @@ class UDPServer:
   def __iter__(self):
     while True:
       with self.frame_condition:
-        if not self.frame_condition.wait(UDP_TIMEOUT) and self.frame_da:
-          raise StopIteration()
-          print("Raised stop!")
+        while not self.fram_da:
+          self.frame_condition.wait()
+
         frame, self.frame = self.frame, None
         yield frame
         print("yielded frame!")
