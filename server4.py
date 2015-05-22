@@ -137,7 +137,7 @@ class UDPServer:
   def __iter__(self):
     while True:
       with self.frame_condition:
-        while not self.fram_da:
+        while not self.frame_da:
           self.frame_condition.wait()
 
         frame, self.frame = self.frame, None
