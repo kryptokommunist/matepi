@@ -187,11 +187,10 @@ defaulttexts = itertools.chain(*defaultlines)
 
 while 1:
 
-  if not render_queue.empty():
-    renderer = render_queue.get()
-
-  elif udp_server.frame_da():
-    renderer = udp_server
+  if udp_server.frame_da():
+     renderer = udp_server
+  elif not render_queue.empty():
+     renderer = render_queue.get()
   else:
     try: 
       frame = next(defaulttexts)
