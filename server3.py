@@ -78,7 +78,7 @@ def printframe(fb):
 
 def log(*args):
   printlock.acquire()
-  print(strftime('\x1B[93m[%m-%d %H:%M:%S]\x1B[0m'), ' '.join(str(arg) for arg in args), '\x1B[0m')
+  print(time.strftime('\x1B[93m[%m-%d %H:%M:%S]\x1B[0m'), ' '.join(str(arg) for arg in args), '\x1B[0m')
   sys.stdout.flush()
   printlock.release()
 
