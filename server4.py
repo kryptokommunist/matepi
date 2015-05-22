@@ -213,6 +213,6 @@ while 1:
   for frame in renderer:
      sendframe(frame)
      #printframe(frame)
-     #time.sleep(0.1)
+     time.sleep(0.08)
 
 
