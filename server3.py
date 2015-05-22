@@ -9,7 +9,6 @@ import time
 import threading
 import itertools
 import queue
-from numpy import copyto
 
 UDP_TIMEOUT = 3.0
 
@@ -110,7 +109,7 @@ def sendframe(framedata):
        framedata = numpy.delete(framedata, numpy.arange(0, framedata.size, 4))
 
     global dbuf
-    copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
+    dbuf[:480*(3+rgba)] = numpy.copy(numpy.frombuffer(framedata, dtype=numpy.uint8))
 
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)
 
