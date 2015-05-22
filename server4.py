@@ -102,6 +102,7 @@ def sendframe(framedata):
     channel is ignored.
     """
     # just use the first Mate Light available
+    print(framedata)
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
 
     if rgba == 1:
