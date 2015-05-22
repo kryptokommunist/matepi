@@ -175,6 +175,7 @@ thread = threading.Thread(target = tcpserver)
 thread.start()
 
 udp_server = UDPServer(1337, '192.168.2.157')
+udp_server.start()
 
 defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
 #random.shuffle(defaultlines)
