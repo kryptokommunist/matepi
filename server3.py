@@ -168,7 +168,7 @@ def tcpserver():
       conn, addr = tcp.accept()
       data = conn.recv(BUFFSIZE)
       render_queue.put(TextRenderer(data))
-      log("received data: ", data)
+      log("received data from: " + addr)
       conn.send("Thanks for:" + data)
       conn.close()
 
