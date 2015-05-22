@@ -138,7 +138,7 @@ class UDPServer:
   def udp_receive(self):
     while True:
       try:
-        data = socket.recv(BUFFSIZE)
+        data = self.socket.recv(BUFFSIZE)
         if len(data) == BUFFSIZE+4:
           frame = data[:-4]
         elif len(data) == BUFFSIZE:
