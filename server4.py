@@ -176,7 +176,7 @@ thread.start()
 
 udp_server = UDPServer(1337, '192.168.2.157')
 
-defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
+defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
 
@@ -191,7 +191,7 @@ while 1:
     try: 
       frame = next(defaulttexts)
     except StopIteration:
-      defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines', encoding='utf-8').readlines() ]
+      defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines').readlines() ]
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
