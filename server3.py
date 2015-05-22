@@ -9,6 +9,7 @@ import time
 import threading
 import itertools
 import queue
+import sys
 
 UDP_TIMEOUT = 3.0
 
