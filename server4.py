@@ -130,7 +130,7 @@ class UDPServer:
   def __iter__(self):
     while True:
       with self.frame_condition:
-        if not self.frame_condition.wait(timeout=UDP_TIMEOUT) && self.frame_da:
+        if not self.frame_condition.wait(timeout=UDP_TIMEOUT) and self.frame_da:
           raise StopIteration()
         frame, self.frame = self.frame, None
         yield frame
