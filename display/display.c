@@ -72,7 +72,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 				if(alpha) {
 
-					printf("Is alpha!")
+					printf("Is alpha!");
 
 					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
 
