@@ -155,7 +155,7 @@ class UDPServer:
       except Exception as e:
         print ("Error receiving UDP frame:", e)
 
-global render_queue = queue.LifoQueue(maxsize=50)
+render_queue = queue.LifoQueue(maxsize=50)
 
 class TCPServer:
   """A TCP Server, that listens for text to display"""
@@ -172,7 +172,7 @@ class TCPServer:
     global render_queue
     while 1:
       conn, addr = self.socket.accept()
-      data = str(conn.recv(1024).strip(), 'UTF-8')
+      data = str(conn.recv(1024), 'UTF-8').strip()
       if len(data) > 140:
         conn.send(b'TOO MUCH INFORMATION!\n')
         continue
