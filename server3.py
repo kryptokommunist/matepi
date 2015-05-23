@@ -155,7 +155,7 @@ class UDPServer:
       except Exception as e:
         print ("Error receiving UDP frame:", e)
 
-render_queue = queue.LifoQueue(maxsize=50)
+global render_queue = queue.LifoQueue(maxsize=50)
 
 class TCPServer:
   """A TCP Server, that listens for text to display"""
