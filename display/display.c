@@ -83,9 +83,14 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 						uint8_t green = data[i - 1 - 1];
 						uint8_t gamma = data[i - 1];
 
-						data[i - 3 - ((uint8_t) roundf(i/4)) - 1] = applyGamma(red, gamma, brightness);
-						data[i - 3 - ((uint8_t) roundf(i/4)) - 1] = applyGamma(blue, gamma, brightness);
-						data[i - ((uint8_t) roundf(i/4)) - 1] = applyGamma(green, gamma, brightness);
+						unit8_t offset = roundf(i/4));
+
+						printf("offset: %d", offset)
+						printf("i: %d", i)
+
+						data[i - 3 - offset - 1] = applyGamma(red, gamma, brightness);
+						data[i - 3 - offset - 1] = applyGamma(blue, gamma, brightness);
+						data[i - offset - 1] = applyGamma(green, gamma, brightness);
 
 
 
