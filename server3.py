@@ -32,7 +32,7 @@ HOST = "192.168.2.157"
 PORT = 1337
 BUFFSIZE = FRAME_SIZE*3
 
-display = ctypes.CDLL("/home/pi/matepi/matelight-gifplayer-master/display.so") # shared library in C for framebuffer output
+display = ctypes.CDLL("/home/pi/matepi/display/display.so") # shared library in C for framebuffer output
 
 # ---------------------------------------------------
 
