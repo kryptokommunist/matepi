@@ -13,6 +13,8 @@ import sys
 
 UDP_TIMEOUT = 3.0
 
+TEXT_RENDER_SLEEP = 0.3
+
 CRATE_WIDTH = 5
 CRATE_HEIGHT = 4
 CRATES_X = 6
@@ -91,7 +93,7 @@ class TextRenderer:
   def __iter__(self):
     for i in range(-DISPLAY_WIDTH, self.width):
       #print('Rendering text @ pos {}'.format(i))
-      time.sleep(0.03)
+      time.sleep(TEXT_RENDER_SLEEP)
       yield render_text(self.text, i)
 
 #  -------------------------------------------------------
@@ -207,7 +209,7 @@ while 1:
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
-    time.sleep(0.03)
+    time.sleep(TEXT_RENDER_SLEEP)
     continue
 
 
