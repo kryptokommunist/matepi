@@ -123,7 +123,7 @@ def sendframe(framedata):
    
     numpy.copyto(dbuf[:1920], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
-    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
+    #display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
 
 class UDPServer:
 
