@@ -70,7 +70,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	//printf("alpha is %d\n", alpha);
 
 	spi_initialized = -1;
-
+}
 
 
 if(alpha) {
