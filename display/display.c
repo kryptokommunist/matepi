@@ -15,7 +15,7 @@
 #define CRATES_X		    6
 #define CRATES_Y		    4
 #define BUS_COUNT		    4
-#define BYTES_PER_PIXEL	4 //3 Pixel + possibly 1 Gamma Value
+#define BYTES_PER_PIXEL	3 //3 Pixel + possibly 1 Gamma Value
 #define CRATES_PER_BUS	6
 #define BUS_ROWS		(CRATES_Y*CRATE_HEIGHT)
 #define CRATE_COUNT		(CRATES_X*CRATES_Y)
@@ -23,6 +23,7 @@
 #define BUS_SIZE		(CRATES_PER_BUS*CRATE_SIZE*BYTES_PER_PIXEL)
 #define BOTTLES               (CRATE_COUNT*CRATE_SIZE)
 #define BUFF_SIZE                (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)
+#define BUFF_SIZE_ALPHA                (CRATE_COUNT*CRATE_SIZE*4)
 
 unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
 	   10, 15,  16, 11, 6, 
@@ -47,12 +48,12 @@ void display(uint8_t data[BUFF_SIZE], float brightness, int alpha);
 
 uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
-	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
+	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255.0);
 
 }
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(uint8_t data[BUFF_SIZE], float brightness, int alpha)
+void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
@@ -69,6 +70,30 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 }
 
 
+				if(alpha) {
+
+					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
+
+					if(bottle_x % 4 == 3) {
+
+						uint8_t red = data[i - 3];
+						uint8_t blue = data[i - 2];
+						uint8_t green = data[i-1];
+						uint8_t gamma = data[i];
+
+						data[i - 3 - (i/4)] = applyGamma(red, gamma, brightness);
+						data[i - 3 - (i/4)] = applyGamma(blue, gamma, brightness);
+						data[i - (i/4)] = applyGamma(green, gamma, brightness);
+
+
+
+					}
+
+				}
+
+			}
+
+
 unsigned char cratesData[CRATE_COUNT][CRATE_SIZE * 3];
 
 for(int crate_x = 0; crate_x < CRATES_X; crate_x++){
@@ -79,28 +104,7 @@ for(int crate_x = 0; crate_x < CRATES_X; crate_x++){
 
 			for(int bottle_y = 0; bottle_y < CRATE_HEIGHT; bottle_y++) {
 
-				if(alpha) {
-
-					if(bottle_x % 4 == 3) {
-
-						uint8_t red = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 3];
-						uint8_t blue = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 2];
-						uint8_t green = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 1];
-						uint8_t gamma = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
-
-						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x - 2] = applyGamma(red, gamma, brightness);
-						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x - 1] = applyGamma(blue, gamma, brightness);
-						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = applyGamma(green, gamma, brightness);
-
-
-
-					}
-
-				} else {
-
-					cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = (unsigned char) data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
-
-				}
+				cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = (unsigned char) data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
 
 			}
 
