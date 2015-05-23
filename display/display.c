@@ -55,7 +55,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 	        printf("Could not initialize SPI!\n");
 
-	    }
+	}
 
 	printf("I just initialized SPI, bitch!\n");
 
@@ -100,6 +100,6 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
-sleep(0.2); // give time to display, without this the data somehow doesn't get pushed to the display...
+sleep(0.3); // give time to display, without this the data somehow doesn't get pushed to the display...
 
 }
