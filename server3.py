@@ -91,7 +91,7 @@ class TextRenderer:
   def __iter__(self):
     for i in range(-DISPLAY_WIDTH, self.width):
       #print('Rendering text @ pos {}'.format(i))
-      time.sleep(0.1)
+      time.sleep(0.02)
       yield render_text(self.text, i)
 
 #  -------------------------------------------------------
@@ -207,7 +207,7 @@ while 1:
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
-    time.sleep(0.05)
+    time.sleep(0.02)
     continue
 
 
