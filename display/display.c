@@ -74,18 +74,18 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 				if(alpha) {
 
-					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
+					for(int i = 1;  i <= BUFF_SIZE_ALPHA; i++){
 
-					if(i % 4 == 3) {
+					if(i % 4 == 0) {
 
-						uint8_t red = data[i - 3];
-						uint8_t blue = data[i - 2];
-						uint8_t green = data[i - 1];
-						uint8_t gamma = data[i];
+						uint8_t red = data[i - 3 - 1];
+						uint8_t blue = data[i - 2 - 1];
+						uint8_t green = data[i - 1 - 1];
+						uint8_t gamma = data[i - 1];
 
-						data[i - 3 - (i/4)] = applyGamma(red, gamma, brightness);
-						data[i - 3 - (i/4)] = applyGamma(blue, gamma, brightness);
-						data[i - (i/4)] = applyGamma(green, gamma, brightness);
+						data[i - 3 - (i/4) - 1] = applyGamma(red, gamma, brightness);
+						data[i - 3 - (i/4) - 1] = applyGamma(blue, gamma, brightness);
+						data[i - (i/4) - 1] = applyGamma(green, gamma, brightness);
 
 
 
