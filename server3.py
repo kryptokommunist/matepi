@@ -179,13 +179,13 @@ class TCPServer:
     global render_queue
     while 1:
       conn, addr = self.socket.accept()
-      data = str(conn.recv(1024), 'UTF-8').strip().encode('utf-8')
+      data = str(conn.recv(1024), 'UTF-8').strip().replace('\\x1B', '\x1B').encode('utf-8')
       if len(data) > 140:
         conn.send(b'TOO MUCH INFORMATION!\n')
         continue
       log('\x1B[95mText from\x1B[0m {}: {}\x1B[0m'.format(addr, data))
       conn.close()
-      render_queue.put(TextRenderer(data.replace('\\x1B', '\x1B')))
+      render_queue.put(TextRenderer(data)))
 
 
 print("hunny, i'm listening...")
