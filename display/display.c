@@ -56,7 +56,7 @@ uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
 
-printf("alpha is %d\n", alpha);
+printf("alpha is nice");
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
@@ -138,6 +138,6 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
-sleep(0.2); // give time to display, without this the data somehow doesn't get pushed to the display...
+sleep(1); // give time to display, without this the data somehow doesn't get pushed to the display...
 
 }
