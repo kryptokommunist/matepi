@@ -216,13 +216,11 @@ while 1:
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
-    #time.sleep(TEXT_RENDER_SLEEP)
     continue
 
 
   for frame in renderer:
      sendframe(frame)
      #printframe(frame)
-     #time.sleep(0.1)
 
 
