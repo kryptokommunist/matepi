@@ -74,21 +74,13 @@ if(alpha) {
 
 		if(i % 4 == 0) {
 
-			uint8_t red = data[i - 3 - 1];
-			uint8_t blue = data[i - 2 - 1];
-			uint8_t green = data[i - 1 - 1];
 			uint8_t gamma = data[i - 1];
 
 			int offset = roundf(i/4);
 
-			//printf("offset: %d", offset);
-			//printf("i: %d", i);
-
-			data[i - 2 - offset - 1] = applyGamma(red, gamma, brightness);
-			data[i - 1 - offset - 1] = applyGamma(blue, gamma, brightness);
-			data[i - offset - 1] = applyGamma(green, gamma, brightness);
-
-
+			data[i - 2 - offset - 1] = applyGamma(data[i - 3 - 1], gamma, brightness); //red
+			data[i - 1 - offset - 1] = applyGamma(data[i - 2 - 1], gamma, brightness); //blue
+			data[i - offset - 1] = applyGamma(data[i - 1 - 1], gamma, brightness); //green
 
 		}
 
@@ -134,6 +126,6 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
-sleep(0.1); // give time to display, without this the data somehow doesn't get pushed to the display...
+//sleep(0.1); // give time to display, without this the data somehow doesn't get pushed to the display...
 
 }
