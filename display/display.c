@@ -69,6 +69,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	spi_initialized = -1;
 }
 
+printf(alpha);
 
 				if(alpha) {
 
