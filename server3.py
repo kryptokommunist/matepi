@@ -185,7 +185,7 @@ class TCPServer:
         continue
       log('\x1B[95mText from\x1B[0m {}: {}\x1B[0m'.format(addr, data))
       conn.close()
-      render_queue.put(TextRenderer(data.replace('\\x1B', '\x1B').encode('utf-8')))
+      render_queue.put(TextRenderer(data.replace('\\x1B', '\x1B')))
 
 
 print("hunny, i'm listening...")
