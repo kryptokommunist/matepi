@@ -155,30 +155,36 @@ class UDPServer:
       except Exception as e:
         print ("Error receiving UDP frame:", e)
 
-
 render_queue = queue.LifoQueue(maxsize=50)
 
-def tcpserver():
+class TCPServer:
+"""A TCP Server, that listens for text to display"""
 
-    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  def __init__(self, port = 1337, ip=''):
+    self.socket = socket.socket(socket.AF_INET,socket_STREAM)
+    self.socket.bind((ip, port))
+    self.thread = threading.Thread(target = self.tcp_receive)
+    self.start = self.thread.start
 
-    tcp.bind((HOST,PORT))
-    tcp.listen(1)
-
+  def tcp_receive(self):
+    global render_queue
     while 1:
-      conn, addr = tcp.accept()
-      data = conn.recv(BUFFSIZE)
-      render_queue.put(TextRenderer(data))
+      conn, addr = self.socket.accept()
+      data = str(conn.receive(1024).strip(), 'UTF-8')
+      if len(data) > 140:
+        conn.send(b'TOO MUCH INFORMATION!\n')
+        continue
       log('\x1B[95mText from\x1B[0m {}: {}\x1B[0m'.format(addr, data))
-      #conn.send("Thanks for your data")
       conn.close()
+      render_queue.put(TextRenderer(data))
+
 
 print("hunny, i'm listening...")
 
-thread = threading.Thread(target = tcpserver)
-thread.start()
+tcp_server = TCPServer(PORT, HOST)
+tcp_server.start()
 
-udp_server = UDPServer(1337, '192.168.2.157')
+udp_server = UDPServer(PORT, HOST)
 udp_server.start()
 
 defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
