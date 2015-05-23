@@ -47,16 +47,18 @@ float brightness = 1.0;
 
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
-uint8_t applyGamma(uint8_t pixel, uint8_t gamma);
+uint8_t applyGamma(uint8_t pixel, uint8_t gamma) {
+
+	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
+
+}
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness_setting, int alpha)
 {
 
-printf("lsjdfklad");
-
 brightness = brightness_setting;
-//printf("alpha is nice");
+printf("alpha is nice");
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
@@ -139,12 +141,6 @@ for(int i = 0; i < CRATE_COUNT; i++){
 }
 
 wiringPiSPIDataRW(SPI_CHANNEL,buffer,BUFF_SIZE);
-sleep(0.2); // give time to display, without this the data somehow doesn't get pushed to the display...
-
-}
-
-uint8_t applyGamma(uint8_t pixel, uint8_t gamma) {
-
-	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
+sleep(0.1); // give time to display, without this the data somehow doesn't get pushed to the display...
 
 }
