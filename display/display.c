@@ -43,20 +43,22 @@ typedef struct {
 */
 
 int spi_initialized = 0;
+float brightness = 1.0;
 
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
-uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
+uint8_t applyGamma(uint8_t pixel, uint8_t gamma) {
 
 	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
 
 }
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
+void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness_setting, int alpha)
 {
 
-printf("alpha is nice");
+brightness = brightness_setting;
+//printf("alpha is nice");
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
@@ -72,33 +74,34 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	spi_initialized = -1;
 }
 
-				if(alpha) {
 
-					for(int i = 1;  i <= BUFF_SIZE_ALPHA; i++){
+if(alpha) {
 
-					if(i % 4 == 0) {
+	for(int i = 1;  i <= BUFF_SIZE_ALPHA; i++){
 
-						uint8_t red = data[i - 3 - 1];
-						uint8_t blue = data[i - 2 - 1];
-						uint8_t green = data[i - 1 - 1];
-						uint8_t gamma = data[i - 1];
+		if(i % 4 == 0) {
 
-						int offset = roundf(i/4);
+			uint8_t red = data[i - 3 - 1];
+			uint8_t blue = data[i - 2 - 1];
+			uint8_t green = data[i - 1 - 1];
+			uint8_t gamma = data[i - 1];
 
-						//printf("offset: %d", offset);
-						//printf("i: %d", i);
+			int offset = roundf(i/4);
 
-						data[i - 2 - offset - 1] = applyGamma(red, gamma, brightness);
-						data[i - 1 - offset - 1] = applyGamma(blue, gamma, brightness);
-						data[i - offset - 1] = applyGamma(green, gamma, brightness);
+			//printf("offset: %d", offset);
+			//printf("i: %d", i);
+
+			data[i - 2 - offset - 1] = applyGamma(red, gamma);
+			data[i - 1 - offset - 1] = applyGamma(blue, gamma);
+			data[i - offset - 1] = applyGamma(green, gamma);
 
 
 
-					}
+		}
 
-				}
+	}
 
-			}
+}
 
 
 unsigned char cratesData[CRATE_COUNT][CRATE_SIZE * 3];
