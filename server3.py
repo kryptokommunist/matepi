@@ -117,7 +117,7 @@ def sendframe(framedata):
        framedata = numpy.delete(framedata, numpy.arange(0, framedata.size, 4))
        dbuf[:480*(3+rgba)] = numpy.copy(framedata)"""
 
-    print("rgba = " + str(rgba) + "| 480*(3+rgba) = " + str(480*(3+rgba)) + "\nlen(framedata) = " + len(framedata))
+    print("rgba = " + str(rgba) + "| 480*(3+rgba) = " + str(480*(3+rgba)) + "\nlen(framedata) = " + str(len(framedata)))
    
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
