@@ -67,7 +67,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	}
 
 	printf("I just initialized SPI, bitch!\n");
-	printf("alpha is %d\n", alpha);
+	//printf("alpha is %d\n", alpha);
 
 	spi_initialized = -1;
 }
