@@ -42,7 +42,7 @@ typedef struct {
 
 int spi_initialized = 0;
 
-void display(uint8_t data[BUFF_SIZE], int alpha);
+void display(uint8_t data[BUFF_SIZE], float brightness, int alpha);
 
 uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
