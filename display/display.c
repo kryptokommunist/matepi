@@ -83,7 +83,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 						uint8_t green = data[i - 1 - 1];
 						uint8_t gamma = data[i - 1];
 
-						int offset = roundf(i/4);
+						uint8_t offset = roundf(i/4);
 
 						//printf("offset: %d", offset);
 						//printf("i: %d", i);
