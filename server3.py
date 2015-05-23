@@ -111,6 +111,13 @@ def sendframe(framedata):
     # just use the first Mate Light available
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
     global dbuf
+
+    """if rgba == 1:
+       framedata = numpy.frombuffer(framedata, dtype=numpy.uint8)
+       framedata = numpy.delete(framedata, numpy.arange(0, framedata.size, 4))
+       dbuf[:480*(3+rgba)] = numpy.copy(framedata)"""
+
+    print("rgba = " + rgba)
    
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
