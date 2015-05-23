@@ -179,7 +179,7 @@ class TCPServer:
     global render_queue
     while 1:
       conn, addr = self.socket.accept()
-      data = str(conn.recv(1024), 'UTF-8').strip().replace('\\x1B', '\x1B').encode('utf-8')
+      data = str(conn.recv(1024), 'UTF-8').replace('\\x1B', '\x1B').strip().encode('utf-8')
       if len(data) > 140:
         conn.send(b'TOO MUCH INFORMATION!\n')
         continue
