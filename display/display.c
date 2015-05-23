@@ -44,9 +44,14 @@ int spi_initialized = 0;
 
 void display(uint8_t data[BUFF_SIZE], int alpha);
 
+uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
+
+	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
+
+}
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(uint8_t data[BUFF_SIZE], int alpha)
+void display(uint8_t data[BUFF_SIZE], float brightness, int alpha)
 {
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
@@ -73,7 +78,28 @@ for(int crate_x = 0; crate_x < CRATES_X; crate_x++){
 
 			for(int bottle_y = 0; bottle_y < CRATE_HEIGHT; bottle_y++) {
 
-				cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = (unsigned char) data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
+				if(alpha) {
+
+					if(bottle_x % 3 == 2) {
+
+						u_int8_t red = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 3];
+						u_int8_t blue = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 2];
+						u_int8_t green = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 1];
+						u_int8_t gamma = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
+
+						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x - 2] = applyGamma(red, gamma, brightness);
+						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x - 1] = applyGamma(blue, gamma, brightness);
+						cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = applyGamma(green, gamma, brightness);
+
+
+
+					}
+
+				} else {
+
+					cratesData[crate_y * CRATES_X + crate_x][bottle_y * CRATE_WIDTH * 3 + bottle_x] = (unsigned char) data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x];
+
+				}
 
 			}
 
