@@ -172,7 +172,7 @@ class TCPServer:
     global render_queue
     while 1:
       conn, addr = self.socket.accept()
-      data = str(conn.recv(1024), 'UTF-8').strip()
+      data = str(conn.recv(1024), 'UTF-8').strip().encode('utf-8')
       if len(data) > 140:
         conn.send(b'TOO MUCH INFORMATION!\n')
         continue
@@ -189,7 +189,7 @@ tcp_server.start()
 udp_server = UDPServer(PORT, HOST)
 udp_server.start()
 
-defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines', encoding='utf-8').readlines() ]
+defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
 
@@ -203,7 +203,7 @@ while 1:
     try: 
       frame = next(defaulttexts)
     except StopIteration:
-      defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B')) for l in open('default.lines', encoding='utf-8').readlines() ]
+      defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
