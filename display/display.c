@@ -43,21 +43,19 @@ typedef struct {
 */
 
 int spi_initialized = 0;
-float brightness = 1.0;
 
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
-uint8_t applyGamma(uint8_t pixel, uint8_t gamma) {
+uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
 	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
 
 }
 
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
-void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness_setting, int alpha)
+void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
 
-brightness = brightness_setting;
 printf("alpha is nice");
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
@@ -91,9 +89,9 @@ if(alpha) {
 			//printf("offset: %d", offset);
 			//printf("i: %d", i);
 
-			data[i - 2 - offset - 1] = applyGamma(red, gamma);
-			data[i - 1 - offset - 1] = applyGamma(blue, gamma);
-			data[i - offset - 1] = applyGamma(green, gamma);
+			data[i - 2 - offset - 1] = applyGamma(red, gamma, brightness);
+			data[i - 1 - offset - 1] = applyGamma(blue, gamma, brightness);
+			data[i - offset - 1] = applyGamma(green, gamma, brightness);
 
 
 
