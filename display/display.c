@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <math.h>
 
 #define SPI_FREQUENCY   1000000
 #define SPI_CHANNEL     1
