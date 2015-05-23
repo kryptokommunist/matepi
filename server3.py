@@ -112,18 +112,16 @@ def sendframe(framedata):
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
     global dbuf
 
-    gam = 1 if rgba else 0
-
     """if rgba == 1:
        framedata = numpy.frombuffer(framedata, dtype=numpy.uint8)
        framedata = numpy.delete(framedata, numpy.arange(0, framedata.size, 4))
        dbuf[:480*(3+rgba)] = numpy.copy(framedata)"""
 
-    print("rgba = " + str(rgba) + "| 480*(3+gam) = " + str(480*(3+gam)) + "\nlen(framedata) = " + str(len(framedata)))
+    #print("rgba = " + str(rgba) + "| 480*(3+gam) = " + str(480*(3+gam)) + "\nlen(framedata) = " + str(len(framedata)))
    
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
-    #display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
+    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
 
 class UDPServer:
 
