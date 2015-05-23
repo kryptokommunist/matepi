@@ -15,7 +15,7 @@
 #define CRATES_X		    6
 #define CRATES_Y		    4
 #define BUS_COUNT		    4
-#define BYTES_PER_PIXEL	3
+#define BYTES_PER_PIXEL	4 //3 Pixel + possibly 1 Gamma Value
 #define CRATES_PER_BUS	6
 #define BUS_ROWS		(CRATES_Y*CRATE_HEIGHT)
 #define CRATE_COUNT		(CRATES_X*CRATES_Y)
@@ -81,7 +81,7 @@ for(int crate_x = 0; crate_x < CRATES_X; crate_x++){
 
 				if(alpha) {
 
-					if(bottle_x % 3 == 2) {
+					if(bottle_x % 4 == 3) {
 
 						uint8_t red = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 3];
 						uint8_t blue = data[crate_y * CRATE_SIZE*CRATES_X*3 + crate_x * CRATE_WIDTH*3 + bottle_y * CRATE_WIDTH * CRATES_X*3 + bottle_x - 2];
