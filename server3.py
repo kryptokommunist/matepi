@@ -161,7 +161,7 @@ class TCPServer:
   """A TCP Server, that listens for text to display"""
 
   def __init__(self, port = 1337, ip=''):
-    self.socket = socket.socket(socket.AF_INET,socket_STREAM)
+    self.socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     self.socket.bind((ip, port))
     self.thread = threading.Thread(target = self.tcp_receive)
     self.start = self.thread.start
