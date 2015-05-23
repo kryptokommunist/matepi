@@ -42,7 +42,6 @@ typedef struct {
 } rgb_t;
 */
 
-int spi_initialized = 0;
 
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
@@ -52,25 +51,21 @@ uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
 }
 
+void setup() {
+
+        if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
+
+                printf("Could not initialize SPI!\n");
+
+        }
+
+        printf("I just initialized SPI, bitch!\n");
+
+}
+
 /* Takes filename, return buffer containing image data. Length ist BUFF_SIZE*/
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
-
-printf("alpha is nice");
-
-if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
-
-	if(wiringPiSPISetup(SPI_CHANNEL, SPI_FREQUENCY) == -1) {
-
-	        printf("Could not initialize SPI!\n");
-
-	}
-
-	printf("I just initialized SPI, bitch!\n");
-	//printf("alpha is %d\n", alpha);
-
-	spi_initialized = -1;
-}
 
 
 if(alpha) {

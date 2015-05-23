@@ -12,7 +12,7 @@ import queue
 import sys
 
 # Brightness of the LEDs in percent. 1.0 means 100%.
-BRIGHTNESS = 1.0
+BRIGHTNESS = 0.1
 
 UDP_TIMEOUT = 3.0
 
@@ -199,6 +199,8 @@ udp_server.start()
 defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
+
+display.setup()
 
 while 1:
 
