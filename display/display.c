@@ -53,7 +53,7 @@ uint8_t applyGamma(uint8_t pixel, uint8_t gamma);
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness_setting, int alpha)
 {
 
-printf("");
+printf(" ");
 
 brightness = brightness_setting;
 //printf("alpha is nice");
