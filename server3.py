@@ -101,7 +101,7 @@ class TextRenderer:
 
 #  -------------------------------------------------------
 
-dbuf = numpy.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*3, dtype=numpy.uint8)
+dbuf = numpy.zeros(DISPLAY_WIDTH*DISPLAY_HEIGHT*4, dtype=numpy.uint8)
 
 def sendframe(framedata):
     """ Send a frame to the display
@@ -121,7 +121,7 @@ def sendframe(framedata):
 
     print("rgba = " + str(rgba) + "| 480*(3+gam) = " + str(480*(3+gam)) + "\nlen(framedata) = " + str(len(framedata)))
    
-    numpy.copyto(dbuf[:1440], numpy.frombuffer(framedata, dtype=numpy.uint8))
+    numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
     #display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
 
