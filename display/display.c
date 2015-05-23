@@ -56,7 +56,7 @@ uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
 
-printf("alpha is nice");
+printf(" ");
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
