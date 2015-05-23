@@ -12,7 +12,7 @@ import queue
 import sys
 
 # Brightness of the LEDs in percent. 1.0 means 100%.
-BRIGHTNESS = 0.1
+BRIGHTNESS = 0.5
 
 UDP_TIMEOUT = 3.0
 
@@ -200,7 +200,7 @@ defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) f
 #random.shuffle(defaultlines)
 defaulttexts = itertools.chain(*defaultlines)
 
-display.setup()
+display.setup() # open wiringpi connection
 
 while 1:
 
