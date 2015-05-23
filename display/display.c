@@ -44,7 +44,7 @@ typedef struct {
 
 int spi_initialized = 0;
 
-void display(uint8_t data[BUFF_SIZE], float brightness, int alpha);
+void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
 uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
@@ -72,13 +72,15 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 				if(alpha) {
 
+					printf("Is alpha!")
+
 					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
 
 					if(i % 4 == 3) {
 
 						uint8_t red = data[i - 3];
 						uint8_t blue = data[i - 2];
-						uint8_t green = data[i-1];
+						uint8_t green = data[i - 1];
 						uint8_t gamma = data[i];
 
 						data[i - 3 - (i/4)] = applyGamma(red, gamma, brightness);
