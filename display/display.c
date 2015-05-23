@@ -1,4 +1,4 @@
-
+// gcc -std=c99 -shared -Wl,-soname,display -o display.so -fPIC display.c -lwiringPi
 
 #include <stdio.h>
 #include <wiringPiSPI.h>
@@ -74,7 +74,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
 
-					if(bottle_x % 4 == 3) {
+					if(i % 4 == 3) {
 
 						uint8_t red = data[i - 3];
 						uint8_t blue = data[i - 2];
