@@ -12,7 +12,7 @@ import queue
 import sys
 
 # Brightness of the LEDs in percent. 1.0 means 100%.
-BRIGHTNESS = 1.0
+BRIGHTNESS = 1
 
 UDP_TIMEOUT = 3.0
 
