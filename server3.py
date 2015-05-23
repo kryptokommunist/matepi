@@ -158,7 +158,7 @@ class UDPServer:
 render_queue = queue.LifoQueue(maxsize=50)
 
 class TCPServer:
-"""A TCP Server, that listens for text to display"""
+  """A TCP Server, that listens for text to display"""
 
   def __init__(self, port = 1337, ip=''):
     self.socket = socket.socket(socket.AF_INET,socket_STREAM)
