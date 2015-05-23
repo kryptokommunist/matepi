@@ -66,16 +66,13 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 
 	}
 
-	printf("I just initialized SPI, bitch lol!\n");
+	printf("I just initialized SPI, bitch!\n");
+	printf("alpha is %d\n", alpha);
 
 	spi_initialized = -1;
 }
 
-printf("alpha is %d\n", alpha);
-
 				if(alpha) {
-
-					printf("Is alpha!");
 
 					for(int i = 0;  i < BUFF_SIZE_ALPHA; i++){
 
