@@ -48,7 +48,7 @@ void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha);
 
 uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 
-	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255.0);
+	return (uint8_t)roundf(powf((pixel/255.0F), gamma) * brightness * 255);
 
 }
 
@@ -69,7 +69,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	spi_initialized = -1;
 }
 
-printf(alpha);
+printf("alpha is %d\n", alpha);
 
 				if(alpha) {
 
