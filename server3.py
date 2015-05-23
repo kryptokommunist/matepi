@@ -11,6 +11,9 @@ import itertools
 import queue
 import sys
 
+# Brightness of the LEDs in percent. 1.0 means 100%.
+BRIGHTNESS = 1.0
+
 UDP_TIMEOUT = 3.0
 
 TEXT_RENDER_SLEEP = 0.3
@@ -108,15 +111,10 @@ def sendframe(framedata):
     # just use the first Mate Light available
     rgba = len(framedata) == DISPLAY_WIDTH*DISPLAY_HEIGHT*4
     global dbuf
-
-    if rgba == 1:
-       framedata = numpy.frombuffer(framedata, dtype=numpy.uint8)
-       framedata = numpy.delete(framedata, numpy.arange(0, framedata.size, 4))
-       dbuf[:480*(3+rgba)] = numpy.copy(framedata)
    
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
-    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), rgba)
+    display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
 
 class UDPServer:
 
