@@ -56,7 +56,7 @@ uint8_t applyGamma(uint8_t pixel, uint8_t gamma, float brightness) {
 void display(uint8_t data[BUFF_SIZE_ALPHA], float brightness, int alpha)
 {
 
-//printf("alpha is %d\n", alpha);
+printf("alpha is %d\n", alpha);
 
 if(!spi_initialized) { /* SPI should only be initialized once at the beginning! */
 
@@ -67,7 +67,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 	}
 
 	printf("I just initialized SPI, bitch!\n");
-	//printf("alpha is %d\n", alpha);
+	printf("alpha is %d\n", alpha);
 
 	spi_initialized = -1;
 }
@@ -83,7 +83,7 @@ if(!spi_initialized) { /* SPI should only be initialized once at the beginning! 
 						uint8_t green = data[i - 1 - 1];
 						uint8_t gamma = data[i - 1];
 
-						uint8_t offset = roundf(i/4);
+						int offset = roundf(i/4);
 
 						//printf("offset: %d", offset);
 						//printf("i: %d", i);
