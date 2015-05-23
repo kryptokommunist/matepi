@@ -163,8 +163,9 @@ class TCPServer:
   def __init__(self, port = 1337, ip=''):
     self.socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     self.socket.bind((ip, port))
-    self.socket.listen()
+    self.socket.listen(1)
     self.thread = threading.Thread(target = self.tcp_receive)
+    self.thread.daemon = True
     self.start = self.thread.start
 
   def tcp_receive(self):
