@@ -92,7 +92,7 @@ class TextRenderer:
   def __init__(self, text):
     self.text = text
     self.width, _ = compute_text_bounds(text)
-
+    log('\x1B[95mText from\x1B[0m {}: {}\x1B[0m'.format("unknown", self.text))
   def __iter__(self):
     for i in range(-DISPLAY_WIDTH, self.width):
       #print('Rendering text @ pos {}'.format(i))
