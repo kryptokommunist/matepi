@@ -121,7 +121,7 @@ def sendframe(framedata):
 
     print("rgba = " + str(rgba) + "| 480*(3+gam) = " + str(480*(3+gam)) + "\nlen(framedata) = " + str(len(framedata)))
    
-    numpy.copyto(dbuf[:480*(3+gam)], numpy.frombuffer(framedata, dtype=numpy.uint8))
+    numpy.copyto(dbuf[:1920], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), BRIGHTNESS, rgba)
 
