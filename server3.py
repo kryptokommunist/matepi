@@ -207,7 +207,7 @@ while 1:
       defaulttexts = itertools.chain(*defaultlines)
 
     sendframe(frame)
-    time.sleep(0.1)
+    time.sleep(0.05)
     continue
 
 
