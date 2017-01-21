@@ -18,17 +18,17 @@ UDP_TIMEOUT = 3.0
 
 TEXT_RENDER_SLEEP = 0.08
 
-CRATE_WIDTH = 5
-CRATE_HEIGHT = 4
-CRATES_X = 6
-CRATES_Y = 4
+CRATE_WIDTH = 4
+CRATE_HEIGHT = 5
+CRATES_X = 8
+CRATES_Y = 3
 
 DISPLAY_WIDTH = CRATES_X*CRATE_WIDTH
 DISPLAY_HEIGHT = CRATES_Y*CRATE_HEIGHT
 CRATE_SIZE = CRATE_WIDTH*CRATE_HEIGHT*3
 FRAME_SIZE = DISPLAY_WIDTH*DISPLAY_HEIGHT
 
-HOST = "192.168.178.64"
+HOST = "192.168.178.149"
 PORT = 1337
 BUFFSIZE = FRAME_SIZE*3
 
@@ -118,7 +118,7 @@ def sendframe(framedata):
        dbuf[:480*(3+rgba)] = numpy.copy(framedata)"""
 
     #print("rgba = " + str(rgba) + "| 480*(3+gam) = " + str(480*(3+gam)) + "\nlen(framedata) = " + str(len(framedata)))
-   
+
     numpy.copyto(dbuf[:480*(3+rgba)], numpy.frombuffer(framedata, dtype=numpy.uint8))
 
     display.display(dbuf.ctypes.data_as(POINTER(c_uint8)), c_float(BRIGHTNESS), rgba)
@@ -209,7 +209,7 @@ while 1:
   elif not render_queue.empty():
      renderer = render_queue.get()
   else:
-    try: 
+    try:
       frame = next(defaulttexts)
     except StopIteration:
       defaultlines = [ TextRenderer(l[:-1].replace('\\x1B', '\x1B').encode('utf-8')) for l in open('default.lines', encoding='utf-8').readlines() ]
@@ -222,5 +222,3 @@ while 1:
   for frame in renderer:
      sendframe(frame)
      #printframe(frame)
-
-

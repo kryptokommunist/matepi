@@ -13,10 +13,10 @@ import ctypes
 from ctypes import *
 
 
-CRATE_WIDTH = 5
-CRATE_HEIGHT = 4
-CRATES_X = 6
-CRATES_Y = 4
+CRATE_WIDTH = 4
+CRATE_HEIGHT = 5
+CRATES_X = 8
+CRATES_Y = 3
 
 DISPLAY_WIDTH = CRATES_X*CRATE_WIDTH
 DISPLAY_HEIGHT = CRATES_Y*CRATE_HEIGHT
@@ -109,7 +109,7 @@ class TextRenderer:
       yield render_text(self.text, i)
 
 class MateLightUDPServer:
-  def __init__(self, port=1337, ip='192.168.2.157'):
+  def __init__(self, port=1337, ip='192.168.178.149'):
     self.current_client = None
     self.last_timestamp = 0
     self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -120,7 +120,7 @@ class MateLightUDPServer:
     self.start = self.thread.start
     self.frame_condition = threading.Condition()
     self.frame = None
-  
+
   def frame_da(self):
     return self.frame is not None
 
@@ -174,7 +174,7 @@ class MateLightTCPTextHandler(BaseRequestHandler):
     self.request.sendall(b'KTHXBYE!\n')
 
 TCPServer.allow_reuse_address = True
-tserver = TCPServer(('192.168.2.157', 1337), MateLightTCPTextHandler)
+tserver = TCPServer(('192.168.178.149', 1337), MateLightTCPTextHandler)
 t = threading.Thread(target=tserver.serve_forever)
 t.daemon = True
 t.start()
