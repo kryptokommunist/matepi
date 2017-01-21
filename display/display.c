@@ -10,10 +10,10 @@
 #define SPI_FREQUENCY   1000000
 #define SPI_CHANNEL     1
 
-#define CRATE_WIDTH		  5
-#define CRATE_HEIGHT    4
-#define CRATES_X		    6
-#define CRATES_Y		    4
+#define CRATE_WIDTH		  4
+#define CRATE_HEIGHT    5
+#define CRATES_X		    8
+#define CRATES_Y		    3
 #define BUS_COUNT		    4
 #define BYTES_PER_PIXEL	3 //3 Pixel + possibly 1 Gamma Value
 #define CRATES_PER_BUS	6
@@ -25,11 +25,21 @@
 #define BUFF_SIZE                (CRATE_COUNT*CRATE_SIZE*BYTES_PER_PIXEL)
 #define BUFF_SIZE_ALPHA                (CRATE_COUNT*CRATE_SIZE*4)
 
+/* Old config
 unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
-	   10, 15,  16, 11, 6, 
-	   5, 0,  1, 2, 7, 
-	   12, 17, 18, 13, 8, 
-	   3, 4, 9, 14, 19
+	   10, 15, 16, 11,  6,
+	    5,  0,  1,  2,  7,
+	   12, 17, 18, 13,  8,
+	    3,  4,  9, 14, 19
+};
+*/
+
+//new config
+unsigned const char BOTTLE_MAP[CRATE_SIZE] = {
+	   0, 4,  8, 12, 16,
+	   17, 13,  9, 5, 1,
+	   2, 6, 10, 14, 18,
+	   19, 15, 11, 7, 3
 };
 
 /*
